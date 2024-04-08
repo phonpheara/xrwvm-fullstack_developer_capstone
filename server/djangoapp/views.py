@@ -19,12 +19,13 @@ from .models import CarMake, CarModel
 
 from .restapis import get_request, analyze_review_sentiments, post_review
 
-
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 
 # Create your views here.
+
+# Create a 'get_cars' view to handle db request
 def get_cars(request):
     count = CarMake.objects.filter().count()
     print(count)
@@ -53,21 +54,13 @@ def login_user(request):
     return JsonResponse(data)
 
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
 def logout_request(request):
-    # Get the username of the logged-out user
-    username = request.user.username
-
-    # Log the user out
     logout(request)
-
-    # Return a JSON response indicating successful logout
-    data = {"userName": username, "status": "Logged out"}
+    data = {"userName":""}
     return JsonResponse(data)
 
+
 # Create a `registration` view to handle sign up request
-# @csrf_exempt
-# def registration(request):
 @csrf_exempt
 def registration(request):
     context = {}
@@ -100,9 +93,12 @@ def registration(request):
         data = {"userName":username,"error":"Already Registered"}
         return JsonResponse(data)
 
+
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
 # def get_dealerships(request):
+# ...
+#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
     if(state == "All"):
         endpoint = "/fetchDealers"
@@ -111,9 +107,9 @@ def get_dealerships(request, state="All"):
     dealerships = get_request(endpoint)
     return JsonResponse({"status":200,"dealers":dealerships})
 
-
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 # def get_dealer_reviews(request,dealer_id):
+# ...
 def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
@@ -127,8 +123,10 @@ def get_dealer_reviews(request, dealer_id):
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
+
 # Create a `get_dealer_details` view to render the dealer details
 # def get_dealer_details(request, dealer_id):
+# ...
 def get_dealer_details(request, dealer_id):
     if(dealer_id):
         endpoint = "/fetchDealer/"+str(dealer_id)
@@ -137,8 +135,11 @@ def get_dealer_details(request, dealer_id):
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
+
+
 # Create a `add_review` view to submit a review
 # def add_review(request):
+# ...
 def add_review(request):
     if(request.user.is_anonymous == False):
         data = json.loads(request.body)
