@@ -13,3 +13,10 @@ admin.site.register(CarModel)
 
 # CarMakeAdmin class with CarModelInline
 
+<<<<<<< HEAD
+=======
+# Register models here
+admin.site.register(CarMake)
+admin.site.register(CarModel)
+ 
+>>>>>>> d985f2229d4ac831fcac038b9e2dd2fdd828980f
