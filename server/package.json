@@ -8,4 +8,13 @@
   },
   "author": "",
   "license": "ISC"
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
+    "rules": {
+      "semi": ["error", "always"],
+      "quotes": ["error", "double"]
+    }
+  },
 }
